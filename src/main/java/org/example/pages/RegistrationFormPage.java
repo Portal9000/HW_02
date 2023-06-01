@@ -1,15 +1,14 @@
 package org.example.pages;
 
-import org.openqa.selenium.By;
+import org.example.utils.WaitUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class RegistrationFormPage {
+    private WebDriver driver;
     @FindBy(id = "firstName")
     private WebElement firstNameField;
     @FindBy(xpath = "//input[@placeholder='Last Name']")
@@ -22,10 +21,12 @@ public class RegistrationFormPage {
     private WebElement submitButton;
     @FindBy(xpath = "//tr[1]/td[1]/following-sibling::td")
     WebElement userDataText;
-    public RegistrationFormPage(WebDriver driver, WebDriverWait wait) {
+    public RegistrationFormPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
+        this.driver = driver;
     }
     public void enterFirstName(String firstName) {
+        WaitUtils.waitForVisibility(firstNameField);
         firstNameField.sendKeys(firstName);
     }
     public void enterLastName(String lastName) {
