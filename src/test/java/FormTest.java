@@ -1,5 +1,7 @@
 import org.example.pages.RegistrationFormPage;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 // import static org.testng.Assert.assertTrue;
@@ -21,32 +23,42 @@ public class FormTest {
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        registrationFormPage = new RegistrationFormPage(driver, wait);
         driver.manage().window().maximize();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         driver.get("https://demoqa.com/automation-practice-form");
+        registrationFormPage = new RegistrationFormPage(driver, wait);
     }
 
     @Test
     public void checkRegistrationFormData() {
 
-        registrationFormPage.setFirstName("Sasha");
+        registrationFormPage.enterFirstName("Sasha");
+        registrationFormPage.enterLastName("Zin");
+        registrationFormPage.clickMaleRadioButton();
+        registrationFormPage.enterMobileNumber("1234567890");
+        registrationFormPage.clickSubmitButton();
 
-        WebElement lastNameField = driver.findElement(By.xpath("//input[@placeholder=\"Last Name\"]"));
-        lastNameField.sendKeys("Zinchuk");
+        Assert.assertTrue(registrationFormPage.getUserDataText().contains("Sasha Zin"));
 
-        WebElement maleRadioButton = driver.findElement(By.xpath("//label[@for=\"gender-radio-1\"]"));
-        maleRadioButton.click();
+    }
+    @Test
+    public void checkRegistrationFormData2() {
 
-        WebElement mobileNumberField = driver.findElement(By.xpath("//input[@placeholder='Mobile Number']"));
-        mobileNumberField.sendKeys("1234567890");
+        registrationFormPage.enterFirstName("Sasha");
+        registrationFormPage.enterLastName("Zin");
+        registrationFormPage.clickMaleRadioButton();
+        registrationFormPage.enterMobileNumber("1234567890");
 
-        WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='submit']")));
-        submitButton.click();
-
-//        WebElement userDataText = driver.findElement(By.xpath("//tr[1]/td[1]/following-sibling::td"));
+//        WebElement maleRadioButton = driver.findElement(By.xpath("//label[@for=\"gender-radio-1\"]"));
+//        maleRadioButton.click();
 //
-//        Assert.assertTrue(userDataText.getText().contains("Sasha Zinchuk"));
+//        WebElement mobileNumberField = driver.findElement(By.xpath("//input[@placeholder='Mobile Number']"));
+//        mobileNumberField.sendKeys("1234567890");
+
+//        WebElement stateDropDown = driver.findElement(By.id("state"));
+//        stateDropDown.click();
+//        Select dropState = new Select(driver.findElement(By.name()))
+
     }
 //    @AfterMethod
 //    public void tearDown() {
