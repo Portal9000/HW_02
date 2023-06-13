@@ -1,13 +1,18 @@
 package org.example.driver;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import io.github.bonigarcia.wdm.WebDriverManager;
+
 import java.time.Duration;
+
 public class DriverManager {
-    private static WebDriver driver;
-    private DriverManager() {
+
+    private static WebDriver driver = null;
+
+    public DriverManager() {
     }
+
     public static WebDriver getDriver() {
         if (driver == null) {
             WebDriverManager.chromedriver().setup();
@@ -18,7 +23,8 @@ public class DriverManager {
         }
         return driver;
     }
-    public static void quitDriver() {
+
+    public static void closeDriver() {
         try {
             driver.quit();
         } catch (Exception e) {

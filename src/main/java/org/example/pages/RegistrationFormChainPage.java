@@ -1,14 +1,13 @@
 package org.example.pages;
 
-import org.example.utils.Waiters;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class RegistrationFormPage extends BasePage {
+public class RegistrationFormChainPage extends BasePage {
 
     protected WebDriver driver;
 
@@ -27,33 +26,46 @@ public class RegistrationFormPage extends BasePage {
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement submitButton;
 
-    public RegistrationFormPage(WebDriver driver) {
+    @FindBy(xpath = "//tr[1]/td[1]/following-sibling::td")
+    WebElement userDataText;
+
+    public RegistrationFormChainPage(WebDriver driver) {
         super(driver);
     }
 
-    public void enterFirstName(String firstName) {
-        Waiters.waitForVisibility(firstNameField);
+    public RegistrationFormChainPage enterFirstName(String name) {
         log.info("Enter first name");
-        firstNameField.sendKeys(firstName);
+        firstNameField.sendKeys(name);
+        return this;
     }
 
-    public void enterLastName(String lastName) {
+
+    public RegistrationFormChainPage enterLastName(String lastName) {
         log.info("Enter last name");
         lastNameField.sendKeys(lastName);
+        return this;
     }
 
-    public void clickMaleRadioButton() {
+    public RegistrationFormChainPage clickMaleRadioButton() {
         log.info("Click male radio button");
         maleRadioButton.click();
+        return this;
     }
 
-    public void enterMobileNumber(String mobileNumber) {
+    public RegistrationFormChainPage enterMobileNumber(String mobileNumber) {
         log.info("Enter mobile number");
         mobileNumberField.sendKeys(mobileNumber);
+        return this;
     }
 
-    public void clickSubmitButton() {
+    public RegistrationFormChainPage clickSubmitButton() {
         log.info("Click submit button");
         submitButton.sendKeys(Keys.RETURN);
+        return this;
+    }
+
+    public String getUserDataText() {
+        log.info("Get user data text");
+        return userDataText.getText();
     }
 }
