@@ -21,7 +21,8 @@ public class FormTest extends BaseTest {
     @Test(dataProvider = "userData", dataProviderClass = JsonReader.class)
     public void checkRegistrationFormData(UserData userData) {
         registrationFormSteps.fillForm(userData);
-        Assert.assertTrue(registrationFormSteps.getUserDataText().contains("Ivanov"));
+//        Assert.assertTrue(registrationFormSteps.getUserDataText().contains("Ivanov"));
+        Assert.assertTrue(registrationFormSteps.getUserDataText().contains(userData.getFirstName()));
     }
 
     @Test(dataProvider = "userData", dataProviderClass = JsonReader.class)
@@ -31,6 +32,7 @@ public class FormTest extends BaseTest {
         registrationFormSteps.clickMaleRadioButton();
         registrationFormSteps.enterMobileNumber(userData.getMobileNumber());
         registrationFormSteps.clickSubmitButton();
-        Assert.assertTrue(registrationFormSteps.getUserDataText().contains("Ivanov"));
+//        Assert.assertTrue(registrationFormSteps.getUserDataText().contains("Ivanov"));
+        Assert.assertTrue(registrationFormSteps.getUserDataText().contains(userData.getFirstName()));
     }
 }
