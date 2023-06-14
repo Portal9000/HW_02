@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>MyFirstTestProject</artifactId>
+    <artifactId>HW_02</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -92,6 +92,12 @@
             <artifactId>allure-testng</artifactId>
             <version>2.22.2</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-java-commons</artifactId>
+            <version>2.22.2</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
